@@ -4,12 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Validator;
 
 class AuthController extends Controller
 {
     //
     public function register(Request $request)
     {
+       $credentials = $request->only('name', 'email', 'password');
+        
+        $rules = [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users'
+        ];
+        $validator = Validator::make($credentials, $rules);
+        if($validator->fails()) {
+            return response()->json(['success'=> false, 'error'=> $validator->messages()]);
+        }
+
+      
       $user = User::create([
         'name' => $request->name,
         'email' => $request->email,
@@ -23,7 +36,16 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-      $credentials = $request->only(['email', 'password']);
+      $credentials = $request->only('email', 'password');
+        
+        $rules = [
+            'email' => 'required|email',
+            'password' => 'required',
+        ];
+        $validator = Validator::make($credentials, $rules);
+        if($validator->fails()) {
+            return response()->json(['success'=> false, 'error'=> $validator->messages()], 401);
+        }
 
       if (!$token = auth()->attempt($credentials)) {
         return response()->json(['error' => 'Unauthorized'], 401);

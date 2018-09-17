@@ -10,12 +10,17 @@ use App\Http\Resources\RatingResource;
 class RatingController extends Controller
 {
     
-    public function store(Request $request, Book $book)
+    public function __construct()
+    {
+      $this->middleware('auth:api');
+    }
+    
+    public function store(Request $request, $id)
     {
       $rating = Rating::firstOrCreate(
         [
           'user_id' => $request->user()->id,
-          'book_id' => $book->id,
+          'book_id' => $id,
         ],
         ['rating' => $request->rating]
       );

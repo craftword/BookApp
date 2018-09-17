@@ -23,4 +23,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Book 
 Route::apiResource('books', 'BookController');
-Route::post('books/{book}/ratings', 'RatingController@store');
+Route::post('books/{id}/ratings', 'RatingController@store');
+
