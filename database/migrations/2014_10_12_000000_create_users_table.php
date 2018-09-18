@@ -21,6 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            //$table->unique('email');
+
+           //DB::update("alter table users modify email VARCHAR(200) UNIQUE NOT NULL"); // make email field unique
         });
     }
 
