@@ -13,15 +13,20 @@ class LoginTest extends TestCase
     public function testUserLoginsSuccessfully()
     {
         $user = factory(User::class)->create([
-            'email' => 'testlogin@user.com',
-            'password' => bcrypt('toptal123'),
+            'email' => 'bola@gmail.com',
+            'password' => bcrypt('godword20'),
         ]);
 
-        $payload = ['email' => 'testlogin@user.com', 'password' => 'toptal123'];
+        $payload = ['email' => 'bola@gmail.com', 'password' => 'godword20'];
 
-       $result = $this->json('POST', 'api/v1/login', $payload)
-            ->assertStatus(200);
-       var_dump($result->getData(true));    
+       $this->json('post', '/api/v1/login', $payload)
+            ->assertStatus(200)
+            ->assertJson([
+                //"access_token"=> "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC92MVwvcmVnaXN0ZXIiLCJpYXQiOjE1MzczMzUzNzUsImV4cCI6MTUzNzMzODk3NSwibmJmIjoxNTM3MzM1Mzc1LCJqdGkiOiJvRm92VVlLajdYUldjTUpqIiwic3ViIjoxMywicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.DgrE7385I-knypSiSw2Z3T6xiTLHK-VrAsQgQbRzUdc",
+                "token_type"=>"bearer",
+                "expires_in"=>3600
+                
+            ]);  
 
     }
     public function testRequiresEmailAndLogin()
