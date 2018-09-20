@@ -7,6 +7,8 @@ use App\User;
 use Validator;
 use JWTFactory;
 use JWTAuth;
+use Response;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
