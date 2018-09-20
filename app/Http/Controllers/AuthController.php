@@ -37,7 +37,7 @@ class AuthController extends Controller
       $user = User::first();
       $token = JWTAuth::fromUser($user);
 
-      return Response::json(compact('token'));
+      return $this->respondWithToken($token);
     }
 
     public function login(Request $request)
@@ -62,7 +62,7 @@ class AuthController extends Controller
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
-      return Response::json(compact('token'));
+      return $this->respondWithToken($token);
     }
 
     protected function respondWithToken($token)
