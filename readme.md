@@ -7,13 +7,31 @@ The App is developed for a bookstore planning to build a mobile app in the nesre
 We are to build apis for the book inventory where guest can view all books and details of each books with their ratings.
 Users will be able create books, update the books they created and delete it. Users can also rate books only once. Guest cannot rate a book.
 
-## Contributing
+## API ROUTES AND USAGE
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+* Registration and Login <br />
+POST { api/v1/register } <br />
+Fields: name, email, password <br />
+POST {api/v1/login} <br />
+Fields: email, password
+* List all books with their average ratings <br />
+GET { api/v1/books } <br />
+* Show a book details <br />
+GET { api/v1/books/:id} <br />
+* Create a book by autheticate users<br />
+POST {api/v1/books} <br />
+* Update a book by users <br />
+PUT {api/v1/books/:id} <br />
+* Delete a book <br />
+DELETE {api/v1/books/:id} <br />
+* Rate a book by user<br />
+POST {api/v1/books/:id/ratings}
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Live Demo 
+[Click here](https://book2018.herokuapp.com/) <br />
+URL: https://book2018.herokuapp.com/
+
 
 ## License
 
