@@ -19,7 +19,8 @@ class AuthController extends Controller
         
         $rules = [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users'
+            'email' => 'required|email|max:255|unique:users',
+            'password'=> 'required'
         ];
         $validator = Validator::make($credentials, $rules);
         if($validator->fails()) {
@@ -36,7 +37,7 @@ class AuthController extends Controller
       $user = User::first();
       $token = JWTAuth::fromUser($user);
 
-      return $this->respondWithToken($token);
+      return Response::json(compact('token'));
     }
 
     public function login(Request $request)
@@ -61,7 +62,7 @@ class AuthController extends Controller
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
-      return $this->respondWithToken($token);
+      return Response::json(compact('token'));
     }
 
     protected function respondWithToken($token)
