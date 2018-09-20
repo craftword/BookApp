@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Validator;
+use JWTFactory;
+use JWTAuth;
 
 class AuthController extends Controller
 {
@@ -29,7 +31,8 @@ class AuthController extends Controller
         'password' => bcrypt($request->password),
       ]);
 
-      $token = auth()->login($user);
+      $user = User::first();
+      $token = JWTAuth::fromUser($user);
 
       return $this->respondWithToken($token);
     }
