@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use Faker\Generator as Faker;
 
 class UsersTableSeeder extends Seeder
 {

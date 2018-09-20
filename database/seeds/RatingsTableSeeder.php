@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Rating;
+use Faker\Generator as Faker;
 class RatingsTableSeeder extends Seeder
 {
     /**

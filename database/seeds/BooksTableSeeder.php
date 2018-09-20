@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Book;
+use Faker\Generator as Faker;
 class BooksTableSeeder extends Seeder
 {
     /**
