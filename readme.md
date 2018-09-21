@@ -23,6 +23,7 @@ GET { api/v1/books/:id} <br />
 * Create a book by autheticate users<br />
 POST {api/v1/books} <br />
 * Update a book by users <br />
+Field: title, description, author, dateOfPublication, user_id <br />
 PUT {api/v1/books/:id} <br />
 * Delete a book <br />
 DELETE {api/v1/books/:id} <br />
