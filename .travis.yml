@@ -2,25 +2,17 @@ language: php
 php:
   - 7.1.9
 
-matrix:
-  allow_failures:
-    - php: 5.5
 
 before_script:
   - cp .env.travis .env
   - mysql -e 'CREATE DATABASE IF NOT EXISTS apitest;'
- 
-install:
+  - composer self-update --snapshot
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install --dev --no-interaction
-script:
-  - mkdir -p build/logs
-  - php vendor/bin/phpunit -c phpunit.xml.dist 
+ 
 
 script:
   - ./vendor/bin/phpunit --coverage-clover ./tests/logs/clover.xml
 
 after_script:
- - travis_retry php vendor/bin/php-coveralls
-  # or enable logging
-  - travis_retry php vendor/bin/php-coveralls -v
+- php vendor/bin/coveralls -v
