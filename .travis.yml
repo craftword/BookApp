@@ -6,17 +6,16 @@ php:
 before_script:
   - cp .env.travis .env
   - mysql -e 'CREATE DATABASE IF NOT EXISTS apitest;'
-  - composer self-update --snapshot
-  - curl -s http://getcomposer.org/installer | php
-  - php composer.phar install --dev --no-interaction
- 
+  
+install:
+  - composer install
 
 script:
-  - mkdir -p build/logs
-  - php vendor/bin/phpunit -c phpunit.xml.dist
+  - vendor/bin/phpunit --coverage-clover coverage.xml
 
 
 after_script:
-  - travis_retry php vendor/bin/php-coveralls
-  # or enable logging
-  - travis_retry php vendor/bin/php-coveralls -v
+  # upload coverage.xml file to Coveralls to analyze it
+  # minimal required coverage is set to 80+ %
+  - wget https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar
+  - php coveralls.phar --verbose
