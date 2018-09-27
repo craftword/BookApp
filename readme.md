@@ -12,10 +12,9 @@ Users will be able create books, update the books they created and delete it. Us
 ## API ROUTES AND USAGE
 
 <pre>Registration and Login <br />
-<code> POST { api/v1/register } </code> <br />
-Fields: name, email, password 
-
-<POST {api/v1/login} <br />
+* POST { api/v1/register }  <br />
+Fields: name, email, password <br />
+* POST {api/v1/login} <br />
 Fields: email, password
 * List all books with their average ratings <br />
 GET { api/v1/books } <br />
@@ -33,9 +32,10 @@ POST {api/v1/books/:id/ratings}
 </pre>
 
 ## Live Demo 
+<pre>
 [Click here](https://book2018.herokuapp.com/) <br />
 URL: https://book2018.herokuapp.com/
-
+</pre>
 
 ## License
 
