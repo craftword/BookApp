@@ -4,6 +4,9 @@ php:
 before_script:
 - cp .env.travis .env
 - mysql -e 'CREATE DATABASE IF NOT EXISTS apitest;'
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter 
+- chmod +x ./cc-test-reporter 
+- ./cc-test-reporter before-build
 install:
 - composer install
 script:
@@ -11,3 +14,7 @@ script:
 after_script:
 - wget https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar
 - php coveralls.phar --verbose
+- wget https://codeception.com/codecept.phar
+- php codecept.phar
+- mv tests/_output/coverage.xml clover.xml 
+- ./cc-test-reporter after-build --coverage-input-type clover --id 12345 --exit-code $TRAVIS_TEST_RESULT
