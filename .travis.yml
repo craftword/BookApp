@@ -1,24 +1,13 @@
 language: php
 php:
 - 7.1.9
-env:
-  global:
-    - CC_TEST_REPORTER_ID=uoq+lt0OWfh6sUW7xsMsDVRS6xIQxbnDWVDi5+WB4yQBImnjB/2AGq9J1nVu/48q4Bb/t0CHJ0UDCTYhloupuQswlwR6IIg8li8I5mns+iyE2n9UPUR2o2J/MWz0qoVcOhazJil+M7vjHucFaBHH5tkxHeemm1m/UZAF4pGX19Fo/KY6OjZi4ak/uUD5efKC8Te5vUjtS+CDUww2lc6fIIrncSl/zcxui1xFZbEOcnFZjAiG89+MjXH5UUTTrns9vW+0sC4rTzBBMslpF+/QVLx+XxYttquNyc/8wpxziMjULPvowq+KCtCfj/+R69Kyr9hBz729wYZUhl8QbpOIQMiUoOsp/C3J/PsnhuSb9HZ1J7TNlG5sJGn6PHE6ubsCuy5B1HwIOfsRrVFxWTN4q2aDku4S0iO8Jp8YdHp/p99WxTx4BJSoXY0jfL+L33QWmegrpPBhIcw+90+qW7/FL6br7aY1lC18tmXjnaqBqreSargUrk/3v9DqTTHZ14UcHfqb9dc64vFO4WOQcm6W9WBuj4pifQ4LQ7dnBm1MKSNwTokPxeX9YCKpydjifvSqfu50ds0M23pTqPDWFAHmQiXouDUHITLZX8/db73aublzp/RjlyDTRBv9MZsq6hKfoi2DOvQeN5r7jrSx9E5V4dbtManETBUdHNVfZ5Yvmbc=
 before_script:
 - cp .env.travis .env
 - mysql -e 'CREATE DATABASE IF NOT EXISTS apitest;'
-- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-- chmod +x ./cc-test-reporter
-- ./cc-test-reporter before-build
 install:
 - composer install
-
 script:
 - "./vendor/bin/phpunit --coverage-clover ./tests/logs/clover.xml"
-- bundle exec rspec
-
 after_script:
 - wget https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar
 - php coveralls.phar --verbose
-- ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-
