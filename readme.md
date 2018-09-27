@@ -1,6 +1,8 @@
 
 [![Build Status](https://travis-ci.org/craftword/BookApp.svg?branch=master)](https://travis-ci.org/craftword/BookApp)
 [![Coverage Status](https://coveralls.io/repos/github/craftword/BookApp/badge.svg?branch=master)](https://coveralls.io/github/craftword/BookApp?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/93881b2cec2a3f42d4da/maintainability)](https://codeclimate.com/github/craftword/BookApp/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/93881b2cec2a3f42d4da/test_coverage)](https://codeclimate.com/github/craftword/BookApp/test_coverage)
 ## Book App (A getDev assessment for PHP Backend Developer)
 
 The App is developed for a bookstore planning to build a mobile app in the nesrest future, but do not current have an API to make it work. 
