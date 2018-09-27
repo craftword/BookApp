@@ -1,21 +1,23 @@
 language: php
 php:
-  - 7.1.9
-
-
+- 7.1.9
 before_script:
-  - cp .env.travis .env
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS apitest;'
-  
+- cp .env.travis .env
+- mysql -e 'CREATE DATABASE IF NOT EXISTS apitest;'
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter 
+- chmod +x ./cc-test-reporter 
+- ./cc-test-reporter before-build
+
 install:
-  - composer install
+- composer install
 
 script:
-  - ./vendor/bin/phpunit --coverage-clover ./tests/logs/clover.xml
-
+- "./vendor/bin/phpunit --coverage-clover ./tests/logs/clover.xml"
+# Running unit tests with clover coverage report 
+- vendor/bin/codecept run unit --coverage --coverage-xml
 
 after_script:
-  # upload coverage.xml file to Coveralls to analyze it
-  # minimal required coverage is set to 80+ %
-  - wget https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar
-  - php coveralls.phar --verbose
+- wget https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar
+- php coveralls.phar --verbose
+- mv tests/_output/coverage.xml clover.xml 
+- ./cc-test-reporter after-build --coverage-input-type clover --id 12345 --exit-code $TRAVIS_TEST_RESULT
