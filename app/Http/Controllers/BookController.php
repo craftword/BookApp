@@ -8,7 +8,8 @@ use App\Http\Resources\BookResource;
 
 class BookController extends Controller
 {
-     public function __construct()
+
+    public function __construct()
     {
       $this->middleware('auth:api')->except(['index', 'show']);
     }
@@ -16,6 +17,14 @@ class BookController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     */
+
+    /**
+     * @OA\Get(
+     *     path="/api/v1/books",
+     *     @OA\Response(response="200", description="Get all books")
+     * )
+     *
      */
     public function index()
     {
@@ -28,6 +37,14 @@ class BookController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     */
+
+    /**
+     * @OA\Post(
+     *     path="/api/v1/books",
+     *     @OA\Response(response="200", description="Create a book")
+     * )
+     *
      */
     public function store(Request $request)
     {
@@ -49,6 +66,14 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     /**
+     * @OA\Get(
+     *     path="/api/v1/books/{id}",
+     *     @OA\Response(response="200", description="Get a book")
+     * )
+     *
+     */
     public function show($id)
     {
         //
@@ -62,6 +87,15 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     */
+
+
+     /**
+     * @OA\Put(
+     *     path="/api/v1/books/{id}",
+     *     @OA\Response(response="200", description="Update a books")
+     * )
+     *
      */
     public function update(Request $request, $id)
     {
@@ -82,6 +116,14 @@ class BookController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     */
+
+     /**
+     * @OA\Delete(
+     *     path="/api/v1/books/{id}",
+     *     @OA\Response(response="200", description="Delete a book")
+     * )
+     *
      */
     public function destroy(Book $book)
     {

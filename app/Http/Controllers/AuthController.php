@@ -9,14 +9,30 @@ use JWTFactory;
 use JWTAuth;
 use Response;
 use Illuminate\Support\Facades\Auth;
+/**
+ * @OA\Info(title="Book API", version="0.1")
+ */
+
+/**
+  *@OA\SecurityScheme(securityScheme="bearerAuth",type="http",scheme="bearer", bearerFormat="JWT"  ),
+ */
 
 class AuthController extends Controller
 {
-    //
+
+/**
+ * @OA\Post(
+ *     path="/register",
+ *     @OA\Response(response="200", description="An example resource")
+ * )
+ *
+ */
+
+
     public function register(Request $request)
     {
        $credentials = $request->only('name', 'email', 'password');
-        
+
         $rules = [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
@@ -27,7 +43,7 @@ class AuthController extends Controller
             return response()->json(['success'=> false, 'error'=> $validator->messages()]);
         }
 
-      
+
       $user = User::create([
         'name' => $request->name,
         'email' => $request->email,
@@ -39,18 +55,65 @@ class AuthController extends Controller
 
       return $this->respondWithToken($token);
     }
-
+    /**
+     * @OA\Post(path="/login",
+     *   tags={"login"},
+     *   summary="Logs user into the system",
+     *   description="",
+     *   operationId="login",
+     *   @OA\Parameter(
+     *     name="email",
+     *     required=true,
+     *     in="query",
+     *     description="The email for login",
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="password",
+     *     in="query",
+     *     @OA\Schema(
+     *         type="string",
+     *     ),
+     *     description="The password for login in clear text",
+     *   ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="successful operation",
+     *     @OA\Schema(type="string"),
+     *     @OA\Header(
+     *       header="X-Rate-Limit",
+     *       @OA\Schema(
+     *           type="integer",
+     *           format="int32"
+     *       ),
+     *       description="calls per hour allowed by the user"
+     *     ),
+     *     @OA\Header(
+     *       header="X-Expires-After",
+     *       @OA\Schema(
+     *          type="string",
+     *          format="date-time",
+     *       ),
+     *       description="date in UTC when token expires"
+     *     )
+     *   ),
+     *   @OA\Response(response=400, description="Invalid username/password supplied")
+     * )
+     */
     public function login(Request $request)
     {
+
       $credentials = $request->only('email', 'password');
-        
+
         $rules = [
             'email' => 'required|email',
             'password' => 'required',
         ];
 
         $validator = Validator::make($credentials, $rules);
-        
+
         if($validator->fails()) {
             return response()->json(['success'=> false, 'error'=> $validator->messages()], 401);
         }

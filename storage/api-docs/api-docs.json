@@ -1,0 +1,135 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Book API",
+        "version": "0.1"
+    },
+    "paths": {
+        "/register": {
+            "post": {
+                "operationId": "App\\Http\\Controllers\\AuthController::register",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "login"
+                ],
+                "summary": "Logs user into the system",
+                "description": "",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "The email for login",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "The password for login in clear text",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "headers": {
+                            "X-Rate-Limit": {
+                                "description": "calls per hour allowed by the user",
+                                "schema": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            },
+                            "X-Expires-After": {
+                                "description": "date in UTC when token expires",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid username/password supplied"
+                    }
+                }
+            }
+        },
+        "/api/v1/books": {
+            "get": {
+                "operationId": "App\\Http\\Controllers\\BookController::index",
+                "responses": {
+                    "200": {
+                        "description": "Get all books"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "App\\Http\\Controllers\\BookController::store",
+                "responses": {
+                    "200": {
+                        "description": "Create a book"
+                    }
+                }
+            }
+        },
+        "/api/v1/books/{id}": {
+            "get": {
+                "operationId": "App\\Http\\Controllers\\BookController::show",
+                "responses": {
+                    "200": {
+                        "description": "Get a book"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "App\\Http\\Controllers\\BookController::update",
+                "responses": {
+                    "200": {
+                        "description": "Update a books"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "App\\Http\\Controllers\\BookController::destroy",
+                "responses": {
+                    "200": {
+                        "description": "Delete a book"
+                    }
+                }
+            }
+        },
+        "/books/{id}/rating": {
+            "post": {
+                "operationId": "App\\Http\\Controllers\\RatingController::store",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

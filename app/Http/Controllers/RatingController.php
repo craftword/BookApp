@@ -9,12 +9,18 @@ use App\Http\Resources\RatingResource;
 
 class RatingController extends Controller
 {
-    
+
     public function __construct()
     {
       $this->middleware('auth:api');
     }
-    
+    /**
+     * @OA\Post(
+     *     path="/books/{id}/rating",
+     *     @OA\Response(response="200", description="An example resource")
+     * )
+     *
+     */
     public function store(Request $request, $id)
     {
       $rating = Rating::firstOrCreate(
